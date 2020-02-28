@@ -5,7 +5,7 @@ public class Food {
     private int foodY; // Stores Y pos of our food
 
     // Used to determine random position of food
-    private final int RANDOMPOSITION = 40;
+    private final int RANDOMPOSITION = 20;
 
     public void createFood() {
 

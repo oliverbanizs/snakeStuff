@@ -1,15 +1,9 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class Board extends JPanel implements ActionListener {
@@ -17,8 +11,9 @@ public class Board extends JPanel implements ActionListener {
 // TODO: Implement a way for the player to win
 
     // Holds height and width of the window
-    private final static int BOARDWIDTH = 1000;
-    private final static int BOARDHEIGHT = 980;
+    private final static int BOARDWIDTH = 800;
+    private final static int BOARDHEIGHT = 600;
+    private int intScore = 0;
 
     // Used to represent pixel size of food & our snake's joints
     private final static int PIXELSIZE = 25;
@@ -39,7 +34,7 @@ public class Board extends JPanel implements ActionListener {
     // Used to set game speed, the lower the #, the faster the snake travels
 // which in turn
 // makes the game harder.
-    private static int speed = 45;
+    private static int speed = 120;
 
     // Instances of our snake & food so we can use their methods
     private Snake snake = new Snake();
@@ -67,20 +62,22 @@ public class Board extends JPanel implements ActionListener {
     // Draw our Snake & Food (Called on repaint()).
     void draw(Graphics g) {
         // Only draw if the game is running / the snake is alive
+
         if (inGame == true) {
-            g.setColor(Color.green);
+            g.setColor(Color.red);
             g.fillRect(food.getFoodX(), food.getFoodY(), PIXELSIZE, PIXELSIZE); // food
+            g.drawString("Score: " + (intScore - 3), 10, 10);
 
             // Draw our snake.
-            for (int i = 0; i < snake.getJoints(); i++) {
+            for (intScore = 0; intScore < snake.getJoints(); intScore++) {
                 // Snake's head
-                if (i == 0) {
-                    g.setColor(Color.RED);
-                    g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i),
+                if (intScore == 0) {
+                    g.setColor(Color.GREEN);
+                    g.fillRect(snake.getSnakeX(intScore), snake.getSnakeY(intScore),
                             PIXELSIZE, PIXELSIZE);
                     // Body of snake
                 } else {
-                    g.fillRect(snake.getSnakeX(i), snake.getSnakeY(i),
+                    g.fillRect(snake.getSnakeX(intScore), snake.getSnakeY(intScore),
                             PIXELSIZE, PIXELSIZE);
                 }
             }
@@ -169,7 +166,7 @@ public class Board extends JPanel implements ActionListener {
         String message = "Game over";
 
         // Create a new font instance
-        Font font = new Font("Times New Roman", Font.BOLD, 14);
+        Font font = new Font("Times New Roman", Font.BOLD, 25);
         FontMetrics metrics = getFontMetrics(font);
 
         // Set the color of the text to red, and set the font

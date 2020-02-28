@@ -10,8 +10,10 @@ public class Snake {
     private boolean movingUp = false;
     private boolean movingDown = false;
 
-    private int joints = 0; // Stores # of dots / joints the snake has (starts
+
+    public int joints = 0; // Stores # of dots / joints the snake has (starts
     // with 3)
+
 
     public int getSnakeX(int index) {
         return x[index];

@@ -1,4 +1,4 @@
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.JFrame;
 
@@ -13,6 +13,7 @@ public class Game extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
 
     public static void main(String[] args) {
 
