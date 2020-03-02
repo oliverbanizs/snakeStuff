@@ -1,22 +1,17 @@
-import java.awt.EventQueue;
+import java.awt.*;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class Game extends JFrame {
 
-    Game() {
+    public Game() {
         add(new Board());
         setResizable(false);
         pack();
-
-        setTitle("Snake");
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
-
     public static void main(String[] args) {
-
-        // Creates a new thread so our GUI can process itself
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
