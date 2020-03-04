@@ -2,10 +2,10 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public class Game extends JFrame {
+public class Main extends JFrame {
 
-    public Game() {
-        add(new Board());
+    public Main() {
+        add(new Canvas());
         setResizable(false);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -15,7 +15,7 @@ public class Game extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JFrame frame = new Game();
+                JFrame frame = new Main();
                 frame.setVisible(true);
             }
         });
