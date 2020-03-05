@@ -45,7 +45,7 @@ public class Canvas extends JPanel implements ActionListener {
         draw(g);
     }
 
-    void draw(Graphics g) {
+    public void draw(Graphics g) {
 
         if (isGameRunning == true) {
             g.setColor(Color.red);
@@ -55,16 +55,13 @@ public class Canvas extends JPanel implements ActionListener {
             g.setColor(Color.WHITE);
             g.fillRect(apple.getHeadFoodX(), apple.getHeadFoodY(), rectSize, rectSize);
             g.drawString("Score: " + (score - 3), 10, 10);
-
+            g.drawString("Snake: " + (score), 80, 10);
+            
             for (score = 0; score < body.getNewRect(); score++) {
                 if (score == 0) {
                     g.setColor(Color.GREEN);
-                    g.fillRect(body.getBodyX(score), body.getBodyY(score),
-                            rectSize, rectSize);
-                    if ((proximity(body.getBodyX(0), apple.getHeadFoodX(), 20))
-                            && (proximity(body.getBodyY(0), apple.getHeadFoodY(), 20))) {
-                        g.fillRect(body.getBodyX(score), body.getBodyY(score),50,50);
-                    }
+                    g.fillRect(body.getBodyX(score), body.getBodyY(score), rectSize, rectSize);
+
                 } else {
                     g.fillRect(body.getBodyX(score), body.getBodyY(score),
                             rectSize, rectSize);
@@ -101,7 +98,7 @@ public class Canvas extends JPanel implements ActionListener {
             apple.createSpeedFood();
         }if ((proximity(body.getBodyX(0), apple.getHeadFoodX(), 20))
                 && (proximity(body.getBodyY(0), apple.getHeadFoodY(), 20))) {
-            body.setNewRect(body.getNewRect() + 1);
+            body.setNewRect(body.getNewRect() + 2);
             apple.createHeadFood();
         }
     }
@@ -125,6 +122,7 @@ public class Canvas extends JPanel implements ActionListener {
         }
         if (!isGameRunning) {
             timer.stop();
+            speedFoodTimer.stop();
         }
     }
     void endGame(Graphics g) {
@@ -149,34 +147,64 @@ public class Canvas extends JPanel implements ActionListener {
         @Override
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
-            if ((key == KeyEvent.VK_LEFT) && (!body.isRight())) {
-                body.setLeft(true);
-                body.setUp(false);
-                body.setDown(false);
-            }
-            if ((key == KeyEvent.VK_RIGHT) && (!body.isLeft())) {
-                body.setRight(true);
-                body.setUp(false);
-                body.setDown(false);
-            }
-            if ((key == KeyEvent.VK_UP) && (!body.isDown())) {
-                body.setUp(true);
-                body.setRight(false);
-                body.setLeft(false);
-            }
-            if ((key == KeyEvent.VK_DOWN) && (!body.isUp())) {
-                body.setDown(true);
-                body.setRight(false);
-                body.setLeft(false);
-            }
-            if ((key == KeyEvent.VK_ENTER) && (isGameRunning == false)) {
-                isGameRunning = true;
-                body.setDown(false);
-                body.setRight(false);
-                body.setLeft(false);
-                body.setUp(false);
-                speed = 200;
-                initializeGame();
+            if (score <= 13) {
+                if ((key == KeyEvent.VK_LEFT) && (!body.isRight())) {
+                    body.setLeft(true);
+                    body.setUp(false);
+                    body.setDown(false);
+                }
+                if ((key == KeyEvent.VK_RIGHT) && (!body.isLeft())) {
+                    body.setRight(true);
+                    body.setUp(false);
+                    body.setDown(false);
+                }
+                if ((key == KeyEvent.VK_UP) && (!body.isDown())) {
+                    body.setUp(true);
+                    body.setRight(false);
+                    body.setLeft(false);
+                }
+                if ((key == KeyEvent.VK_DOWN) && (!body.isUp())) {
+                    body.setDown(true);
+                    body.setRight(false);
+                    body.setLeft(false);
+                }
+                if ((key == KeyEvent.VK_ENTER) && (isGameRunning == false)) {
+                    isGameRunning = true;
+                    body.setDown(false);
+                    body.setRight(false);
+                    body.setLeft(false);
+                    body.setUp(false);
+                    initializeGame();
+                }
+            }else {
+                if ((key == KeyEvent.VK_LEFT) && (!body.isRight())) {
+                    body.setLeft(false);
+                    body.setUp(false);
+                    body.setDown(true);
+                }
+                if ((key == KeyEvent.VK_RIGHT) && (!body.isLeft())) {
+                    body.setRight(false);
+                    body.setUp(true);
+                    body.setDown(false);
+                }
+                if ((key == KeyEvent.VK_UP) && (!body.isDown())) {
+                    body.setUp(false);
+                    body.setRight(false);
+                    body.setLeft(true);
+                }
+                if ((key == KeyEvent.VK_DOWN) && (!body.isUp())) {
+                    body.setDown(false);
+                    body.setRight(true);
+                    body.setLeft(false);
+                }
+                if ((key == KeyEvent.VK_ENTER) && (isGameRunning == false)) {
+                    isGameRunning = true;
+                    body.setDown(false);
+                    body.setRight(false);
+                    body.setLeft(false);
+                    body.setUp(false);
+                    initializeGame();
+                }
             }
         }
     }
